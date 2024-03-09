@@ -10,7 +10,7 @@ Install
 
 
 ```shell
-minikube start
+minikube start  --kubernetes-version=v1.25.0
 
 # Pick a release from https://github.com/armory/spinnaker-operator/releases (or clone the repo and use the master branch for the latest development work)
 mkdir -p spinnaker-operator && cd spinnaker-operator
@@ -22,4 +22,13 @@ kubectl apply -f deploy/crds/
 # Install operator in namespace spinnaker-operator, see below if you want a different namespace
 kubectl create ns spinnaker-operator
 kubectl -n spinnaker-operator apply -f deploy/operator/cluster
+```
+
+The spinnaker operator only watches the CRD in it's own namespace
+```shell
+kubectl apply -f deploy/crds/
+kubectl create ns spinnaker-operator
+kubectl apply -n spinnaker-operator -f deploy/operator/basic
+kubectl create ns spinnaker-operator
+kubectl -n spinnaker-operator apply -f deploy/spinnaker/basic/spinnakerservice.yml
 ```
