@@ -32,3 +32,14 @@ kubectl apply -n spinnaker-operator -f deploy/operator/basic
 kubectl create ns spinnaker-operator
 kubectl -n spinnaker-operator apply -f deploy/spinnaker/basic/spinnakerservice.yml
 ```
+
+Once everything is running
+```shell
+kubectl -n spinnaker-operator port-forward deployment/spin-deck 9000:9000
+kubectl -n spinnaker-operator port-forward deployment/spin-gate 8084:8084
+```
+
+# TODO 
+
+Fix spin-front, it's connecting to a non-existing aws instance
+
