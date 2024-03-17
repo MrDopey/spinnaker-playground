@@ -44,3 +44,21 @@ kubectl -n spinnaker-operator port-forward deployment/spin-gate 8084:8084
 
 Fix spin-front, it's connecting to a non-existing aws instance
 
+
+---
+
+```shell
+minikube start
+
+
+docker run --name halyard --rm \
+    --network host \
+    -v ./.kube:/home/spinnaker/.kube \
+    -v ./.hal:/home/spinnaker/.hal \
+    -v ~/.minikube:/home/spinnaker/.minikube \
+    -it us-docker.pkg.dev/spinnaker-community/docker/halyard:stable
+
+hal config version edit --version 1.33.0
+
+# Set context to minikube not docker-desktop
+```
