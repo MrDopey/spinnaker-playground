@@ -2,6 +2,7 @@ https://spinnaker.io/docs/setup/quickstart/
 
 https://github.com/armory/spinnaker-operator
 
+https://gist.github.com/jhoughtelin/e31ceeb1aa48330775864f9c58a921f5
 
 Install
 - minikube https://minikube.sigs.k8s.io/docs/

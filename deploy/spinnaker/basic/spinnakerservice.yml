@@ -7,10 +7,65 @@ spec:
     config:
       version: 1.17.1   # the version of Spinnaker to be deployed
       persistentStorage:
-        persistentStoreType: s3
-        s3:
-          bucket: <change-me> # Change to a unique name. Spinnaker stores application and pipeline definitions here
-          rootFolder: front50
+        persistentStoreType: sql
+        sql:
+          enabled: true
+          connectionPools:
+            default:
+              default: true
+              jdbcUrl: jdbc:mysql://mysql:3306/front50
+              user: root
+              password: 123
+          migration:
+            user: root
+            password: 123
+            jdbcUrl: jdbc:mysql://mysql:3306/front50
+        # s3:
+        #   enabled: false
+        #   bucket: <change-me> # Change to a unique name. Spinnaker stores application and pipeline definitions here
+        #   rootFolder: front50
+    service-settings:
+      # clouddriver: {}
+      deck: {}
+      # echo: {}
+      # fiat: {}
+      front50:
+        sql:
+          enabled: true
+          connectionPools:
+            default:
+              default: true
+              jdbcUrl: jdbc:mysql://mysql:3306/front50
+              user: root
+              password: 123
+          migration:
+            user: root
+            password: 123
+            jdbcUrl: jdbc:mysql://mysql:3306/front50
+        spinnaker:
+          redis:
+            enabled: false
+        spinnaker:
+          s3:
+            enabled: false
+          gcs:
+            enabled: false
+          migration:
+            enabled: false
+            primaryClass: com.netflix.spinnaker.front50.model.SqlStorageService
+            previousClass: com.netflix.spinnaker.front50.model.GcsStorageService
+            compositeStorageService:
+              enabled: false
+              # enabled: true
+              reads:
+                primary: true
+                previous: false
+      # gate: {}
+      # igor: {}
+      # kayenta: {}
+      # orca: {}
+      # rosco: {}
+
   # spec.expose - This section defines how Spinnaker should be publicly exposed
   expose:
     type: service  # Kubernetes LoadBalancer type (service/ingress), note: only "service" is supported for now
